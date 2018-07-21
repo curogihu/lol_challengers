@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateSummonersTable extends Migration
+class CreateAccountsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class CreateSummonersTable extends Migration
      */
     public function up()
     {
-        Schema::create('summoners', function (Blueprint $table) {
-            $table->integer("summoner_id");
+        Schema::create('accounts', function (Blueprint $table) {
+            $table->integer("account_id");
         });
     }
 
@@ -25,6 +25,6 @@ class CreateSummonersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('summoners');
+        Schema::dropIfExists('accounts');
     }
 }

@@ -21,3 +21,5 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::get('/import/items', 'ItemController@import');
 Route::get('/import/champions', 'ChampionController@import');
 Route::get('/import/challengers', 'DetailedMatchInfoController@import');
+Route::get('/import/summoners', 'SummonerController@import');
+Route::get('/import/accounts', 'SummonerController@accountImport');

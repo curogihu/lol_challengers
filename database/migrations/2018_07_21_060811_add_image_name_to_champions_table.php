@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateDetailedMatchInfosTable extends Migration
+class AddImageNameToChampionsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,8 @@ class CreateDetailedMatchInfosTable extends Migration
      */
     public function up()
     {
-        Schema::create('detailed_match_infos', function (Blueprint $table) {
-            $table->increments('id');
-            $table->timestamps();
+        Schema::table('champions', function (Blueprint $table) {
+            $table->string('image_name');
         });
     }
 
@@ -26,6 +25,8 @@ class CreateDetailedMatchInfosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('detailed_match_infos');
+        Schema::table('champions', function (Blueprint $table) {
+            //
+        });
     }
 }

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateIngestedMatchesTable extends Migration
+class AddImageNameToItemsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,8 @@ class CreateIngestedMatchesTable extends Migration
      */
     public function up()
     {
-        Schema::create('ingested_matches', function (Blueprint $table) {
-            $table->increments('id');
-            $table->timestamps();
+        Schema::table('items', function (Blueprint $table) {
+            $table->string('image_name');
         });
     }
 
@@ -26,6 +25,8 @@ class CreateIngestedMatchesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('ingested_matches');
+        Schema::table('items', function (Blueprint $table) {
+            //
+        });
     }
 }

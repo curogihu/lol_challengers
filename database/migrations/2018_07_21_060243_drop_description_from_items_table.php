@@ -4,10 +4,8 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateChampionsTable extends Migration
+class DropDescriptionFromItemsTable extends Migration
 {
-    public $incrementing = false;
-    
     /**
      * Run the migrations.
      *
@@ -15,10 +13,8 @@ class CreateChampionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('champions', function (Blueprint $table) {
-            $table->integer('id')->primary();
-            $table->string('key');
-            $table->string('name');
+        Schema::table('items', function (Blueprint $table) {
+            $table->dropColumn('description');
         });
     }
 
@@ -29,6 +25,8 @@ class CreateChampionsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('champions');
+        Schema::table('items', function (Blueprint $table) {
+            //
+        });
     }
 }

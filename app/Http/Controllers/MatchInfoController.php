@@ -52,6 +52,8 @@ class MatchInfoController extends Controller
 				$match_info->role = $participant["timeline"]["role"];
 				$match_info->lane = $participant["timeline"]["lane"];
 
+				// 元々のAPIに設定されていない場合あり。
+				// summonerIdの場合は、存在すらもないため、条件分岐必要
 				$match_info->accountId = $personal_info[$participant["participantId"]]["accountId"];
 				$match_info->currentAccountId = $personal_info[$participant["participantId"]]["currentAccountId"];
 				$match_info->summonerId = $personal_info[$participant["participantId"]]["summonerId"];

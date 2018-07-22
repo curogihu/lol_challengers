@@ -27,5 +27,5 @@ Route::get('/import/matches', 'MatchController@import');
 
 Route::get('/import/matches', 'MatchController@import');
 
-Route::get('/import/matches/info', 'MatchInfoController@import');
-Route::get('/import/matches/timelines', 'TimelineController@import');
+Route::get('/import/matches/info', 'MatchInfoController@importMatchInfo');
+Route::get('/import/matches/timelines', 'MatchInfoController@importMatchTimeline');

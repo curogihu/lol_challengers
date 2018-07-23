@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Match;
 use App\MatchInfo;
+use App\Timeline;
 
 class MatchInfoController extends Controller
 {
@@ -53,7 +54,7 @@ class MatchInfoController extends Controller
 				$match_info->lane = $participant["timeline"]["lane"];
 
 				// 元々のAPIに設定されていない場合あり。
-				// summonerIdの場合は、存在すらもないため、条件分岐必要
+				// summonerIdの場合は、存在すらもないケースあり、条件分岐必要
 				$match_info->accountId = $personal_info[$participant["participantId"]]["accountId"];
 				$match_info->currentAccountId = $personal_info[$participant["participantId"]]["currentAccountId"];
 				$match_info->summonerId = $personal_info[$participant["participantId"]]["summonerId"];
@@ -69,6 +70,62 @@ class MatchInfoController extends Controller
     }
 
     public function importMatchTimeline() {
+    	$matches = Match::all();
 
+    	// echo(var_dump($accounts));
+		$cnt = 0;
+    	$match_cnt = 0;
+
+
+    	$base_url = "https://na1.api.riotgames.com/lol/match/v3/timelines/by-match/[game_id]?api_key=" . env("RIOT_GAMES_API_KEY");
+
+    	// $team_info = array(100 => "", 200 => "");
+
+    	// 長時間かかるので、実行時間の制限はなし
+    	set_time_limit(0);
+
+    	foreach($matches as $target_match) {
+    		$json = file_get_contents(str_replace("[game_id]", $target_match->gameId, $base_url));
+			$arr = json_decode($json,TRUE);
+
+			foreach($arr["frames"] as $frame) {
+				if(empty($frame["events"])) {
+					continue;
+				}
+
+				foreach($frame["events"] as $event) {
+					switch($event["type"]) {
+
+						case "WARD_PLACED":
+							$timeline = new Timeline;
+
+							$timeline->gameId = $target_match->gameId;
+							$timeline->type = $event["type"];
+							$timeline->wardType = $event["wardType"];
+							$timeline->participantId = $event["creatorId"];
+							$timeline->timpstamp = $event["timestamp"];
+
+							$timeline->save();
+							break;
+
+						case "ITEM_PURCHASED":
+							$timeline = new Timeline;
+
+							$timeline->gameId = $target_match->gameId;
+							$timeline->type = $event["type"];
+							$timeline->itemId	 = $event["itemId"];
+							$timeline->participantId = $event["participantId"];
+							$timeline->timpstamp = $event["timestamp"];
+
+							$timeline->save();
+							break;
+					}
+				}
+    		}
+
+    		sleep(3);
+    	}
+
+    	return;
     }
 }

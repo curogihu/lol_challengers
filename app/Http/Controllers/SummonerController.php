@@ -55,7 +55,7 @@ class SummonerController extends Controller
 			$account->save();
 
 			$cnt += 1;
-			Log::info($cnt . ", Finished summoner id:" . $summoner->summoner_id);
+			// Log::info($cnt . ", Finished summoner id:" . $summoner->summoner_id);
 			sleep(3);
     	}
 

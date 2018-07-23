@@ -23,3 +23,9 @@ Route::get('/import/champions', 'ChampionController@import');
 Route::get('/import/challengers', 'DetailedMatchInfoController@import');
 Route::get('/import/summoners', 'SummonerController@import');
 Route::get('/import/accounts', 'SummonerController@accountImport');
+Route::get('/import/matches', 'MatchController@import');
+
+Route::get('/import/matches', 'MatchController@import');
+
+Route::get('/import/matches/info', 'MatchInfoController@importMatchInfo');
+Route::get('/import/matches/timelines', 'MatchInfoController@importMatchTimeline');

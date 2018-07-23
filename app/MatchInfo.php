@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Match extends Model
+class MatchInfo extends Model
 {
     public $timestamps = false;
 }

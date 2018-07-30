@@ -22,7 +22,7 @@ class ChampionController extends Controller
 		    foreach($arr['data'] as $key => $target_champion) {
 		    	$champion = new Champion();
 
-				$champion->id = $target_champion["id"];
+				$champion->id = $key;
 				$champion->key = $target_champion["key"] ;
 				$champion->name = $target_champion["name"];
 				$champion->image_name = $target_champion["image"]["full"];
@@ -31,4 +31,14 @@ class ChampionController extends Controller
 		    }
 		}
 	}
+
+    public function show() {
+    	// $champions = Champion::all();
+
+    	$champions = Champion::orderBy('name')->get();
+
+    	// echo(var_dump($champions));
+
+    	return view('index', compact('champions'));
+    }
 }

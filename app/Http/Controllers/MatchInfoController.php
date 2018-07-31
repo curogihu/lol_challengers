@@ -8,6 +8,9 @@ use App\Match;
 use App\MatchInfo;
 use App\Timeline;
 
+use App\Champion;
+use DB;
+
 class MatchInfoController extends Controller
 {
     public function importMatchInfo() {
@@ -88,6 +91,8 @@ class MatchInfoController extends Controller
     		$json = file_get_contents(str_replace("[game_id]", $target_match->gameId, $base_url));
 			$arr = json_decode($json,TRUE);
 
+			$item_timelines = array();
+
 			foreach($arr["frames"] as $frame) {
 				if(empty($frame["events"])) {
 					continue;
@@ -127,5 +132,16 @@ class MatchInfoController extends Controller
     	}
 
     	return;
+    }
+
+    public function show(string $champion_name) {
+    	$champion = Champion::find($champion_name);
+
+    	// echo($champion->key);
+
+    	$results = DB::select("select tmp.itemId, items.name, items.price, items.image_name, TRUNCATE(avg(tmp.min_timestamp / 1000), 0) as avg_min_timpstamp from ( SELECT match_infos.gameId, timelines.type, timelines.itemId, min(timelines.timpstamp) as min_timestamp FROM match_infos inner join timelines on match_infos.gameId = timelines.gameId and match_infos.participantId = timelines.participantId where match_infos.championId = :championId and type = 'ITEM_PURCHASED' and winFlag = 'Win' group by match_infos.gameId, match_infos.championId, match_infos.winFlag, timelines.type, timelines.itemId ) tmp inner join items on tmp.itemId = items.id group by tmp.itemId, items.name, items.price, items.image_name order by avg_min_timpstamp", ['championId' => $champion->key]);
+
+    	// echo(var_dump($results));
+    	return view('result', compact('results'));
     }
 }

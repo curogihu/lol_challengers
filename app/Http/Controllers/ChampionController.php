@@ -22,8 +22,8 @@ class ChampionController extends Controller
 		    foreach($arr['data'] as $key => $target_champion) {
 		    	$champion = new Champion();
 
-				$champion->id = $key;
-				$champion->key = $target_champion["key"] ;
+				$champion->id = mb_strtolower($target_champion["id"]);
+				$champion->key = $target_champion["key"];
 				$champion->name = $target_champion["name"];
 				$champion->image_name = $target_champion["image"]["full"];
 

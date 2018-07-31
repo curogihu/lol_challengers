@@ -24,5 +24,6 @@ Route::get('/', function () {
 */
 
 Route::get('/', 'ChampionController@show');
+Route::get('/{champion_name}', 'MatchInfoController@show');
 
 

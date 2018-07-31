@@ -8,4 +8,5 @@ use App\Champion;
 class Champion extends Model
 {
     public $timestamps = false;
+    public $incrementing = false;
 }

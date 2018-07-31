@@ -142,6 +142,6 @@ class MatchInfoController extends Controller
     	$results = DB::select("select tmp.itemId, items.name, items.price, items.image_name, TRUNCATE(avg(tmp.min_timestamp / 1000), 0) as avg_min_timpstamp from ( SELECT match_infos.gameId, timelines.type, timelines.itemId, min(timelines.timpstamp) as min_timestamp FROM match_infos inner join timelines on match_infos.gameId = timelines.gameId and match_infos.participantId = timelines.participantId where match_infos.championId = :championId and type = 'ITEM_PURCHASED' and winFlag = 'Win' group by match_infos.gameId, match_infos.championId, match_infos.winFlag, timelines.type, timelines.itemId ) tmp inner join items on tmp.itemId = items.id group by tmp.itemId, items.name, items.price, items.image_name order by avg_min_timpstamp", ['championId' => $champion->key]);
 
     	// echo(var_dump($results));
-    	return view('result', compact('results'));
+    	return view('result', compact('results', 'champion'));
     }
 }

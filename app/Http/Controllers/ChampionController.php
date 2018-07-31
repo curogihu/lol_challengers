@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Champion;
+use DB;
 
 class ChampionController extends Controller
 {
@@ -35,9 +36,13 @@ class ChampionController extends Controller
     public function show() {
     	// $champions = Champion::all();
 
-    	$champions = Champion::orderBy('name')->get();
+    	// $champions = Champion::orderBy('name')->get();
 
-    	// echo(var_dump($champions));
+    	$champions = DB::table('champions')
+    				->join('available_champions', 'champions.key', '=', 'available_champions.champion_id')
+    				->select('champions.*')
+    				->orderby('champions.name')
+    				->get();
 
     	return view('index', compact('champions'));
     }

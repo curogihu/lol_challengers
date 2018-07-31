@@ -1,8 +1,14 @@
 @extends('layouts.app')
 
+@section('title', $champion->name)
 @section('content')
-<h1 class="text-center">LoL Challengers</h1>
+	<table>
 	@foreach ($results as $result)
-	    <p><img src="http://ddragon.leagueoflegends.com/cdn/6.24.1/img/item/{{ $result->image_name }}">,name: {{ $result->name }}, price: {{ $result->price}}, time: {{ floor($result->avg_min_timpstamp / 60) }}:{{ $result->avg_min_timpstamp % 60 }}</p>
+		<tr>
+			<td>
+	    		<img src="http://ddragon.leagueoflegends.com/cdn/6.24.1/img/item/{{ $result->image_name }}">,name: {{ $result->name }}, price: {{ $result->price}}, time: {{ floor($result->avg_min_timpstamp / 60) }}:{{ sprintf('%02d', $result->avg_min_timpstamp % 60) }}
+	    	</td>
+	    </tr>
 	@endforeach
+	</table>
 @endsection

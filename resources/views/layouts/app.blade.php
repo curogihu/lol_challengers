@@ -8,9 +8,11 @@
 <body>
   @include('inc.navbar')
 
-  <div class="container">
-    @yield('content')
-  </div>
+	<h1 class="text-center">@yield('title')</h1>
+
+	<div class="container">
+		@yield('content')
+	</div>
 
   @include('inc.footer')
 </body>

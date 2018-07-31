@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class AvailableChampions extends Model
+class AvailableChampion extends Model
 {
     public $timestamps = false;
 }

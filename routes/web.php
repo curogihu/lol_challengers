@@ -11,6 +11,19 @@
 |
 */
 
+/*
 Route::get('/', function () {
     return view('welcome');
 });
+*/
+
+/*
+Route::get('/', function () {
+    return view('index');
+});
+*/
+
+Route::get('/', 'ChampionController@show');
+Route::get('/{champion_name}', 'MatchInfoController@show');
+
+
